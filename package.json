@@ -28,6 +28,7 @@
     "angular-web-storage": "^10.0.0",
     "bn-ng-idle": "^1.0.1",
     "bootstrap": "^4.5.0",
+    "ngx-pagination": "^5.1.1",
     "ngx-toastr": "^13.2.0",
     "ngx-webstorage-service": "^4.1.0",
     "rxjs": "~6.6.0",

@@ -15,7 +15,7 @@ import { BnNgIdleService } from 'bn-ng-idle';
 import { SoliPedidoComponent } from './pages/soli-pedido/soli-pedido.component';
 import { FooterComponent } from './footer/footer.component';
 import { ContratosComponent } from './pages/contratos/contratos.component';
-
+import { NgxPaginationModule } from 'ngx-pagination';
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,6 +33,7 @@ import { ContratosComponent } from './pages/contratos/contratos.component';
     NgbModule,
     FormsModule,
     ReactiveFormsModule,
+    NgxPaginationModule,
     ToastrModule.forRoot(),
     BrowserAnimationsModule
   ],
