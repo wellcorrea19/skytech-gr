@@ -5,9 +5,9 @@
 export const environment = {
   production: false,
   homePage: '',
-  loginUrl: 'http://157.245.255.90:3001/auth/',
-  defaultUrl: 'http://157.245.255.90:3001/api/private/',
-  hostUrl: 'http://157.245.255.90:3001/'
+  loginUrl: 'http://localhost:3001/auth/',
+  defaultUrl: 'http://localhost:3001/api/private/',
+  hostUrl: 'http://localhost:3001/'
 };
 
 /*
