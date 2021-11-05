@@ -68,7 +68,7 @@ export class LoginComponent implements OnInit {
           }
       });
     } else {
-      this.toastr.error('Favor preencher todos os campos!');;
+      this.toastr.error('Favor preencher todos os campos!');
     }
   }
 
