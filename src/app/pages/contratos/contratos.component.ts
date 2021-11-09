@@ -196,8 +196,11 @@ export class ContratosComponent implements OnInit {
     }else{
       this.editar = true;
     }
-
+    console.log(item);
+    console.log(this.dados);
+    console.log(dados);
     if(dados){
+      
       this.dados = item;
       this.empresas();
     }
@@ -222,7 +225,7 @@ export class ContratosComponent implements OnInit {
       } 
       content = contents.usuario;
     }else{
-      this.contrato = item;
+      this.contrato = JSON.parse(JSON.stringify(item));
     }
 
     this.modalService.open(content, { size: 'lg' });
@@ -246,7 +249,46 @@ export class ContratosComponent implements OnInit {
     this.empresas();
   }
 
-  close(){
+  close(form:string=''){
+    this.list=null;
+    this.sublist=null;
+    
+    if(form === 'contrato'){
+      this.contrato={
+        cnpj:'',
+        email:'',
+        cep:'',
+        bairro:'',
+        complemento:'',
+        endereco:'',
+        razaosocial:'',
+        nomefantasia:''
+      };
+    }
+    this.empresa={
+      cnpj:'',
+      razaosocial:'',
+      nomefantasia:'',
+      id_contrato:null
+    };
+    this.email={
+      email:'',
+      nomecontato:'',
+      cargo:''
+    };
+    this.integrador={
+      usuario:'',
+      senha:'',
+      token:'',
+      integrador:''
+    };
+    this.usuario={
+      cpf:'',
+      email:'',
+      usuario   :'',
+      id_contrato:null
+    };
+  
     this.modalService.dismissAll();
   }
   // Função inserindo dados
@@ -264,7 +306,7 @@ export class ContratosComponent implements OnInit {
               this.FillArray( 'list', data.list);
               this.toastr.success('Cadastrado com sucesso');
               this.GetInfo();
-              this.close();
+              this.close('contrato');
               break;
             case (true):
               this.toastr.error(data.msg);
@@ -288,7 +330,7 @@ export class ContratosComponent implements OnInit {
               this.FillArray( 'list', data.list);
               this.toastr.success('Atualizado com sucesso');
               this.GetInfo();
-              this.close();
+              this.close('contrato');
               break;
             case (true):
               this.toastr.error(data.msg);
