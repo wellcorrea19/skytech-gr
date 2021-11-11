@@ -175,7 +175,7 @@
                   <!-- </span> -->
                     <td *ngIf="item.inativo === 1"></td>  
                     <button *ngIf="item.inativo !== 1" class="btn bg-gradient-danger btn-sm m-1" (click)="deactivate(content, item,false,tab,{empresa: contentEmpresa , email:contentEmail, tabela: contentTabela , integrador : contentIntegrador, usuarios : contentUsuario})" ><i class="fas fa-power-off"></i></button>
-                    <button  *ngIf="item.inativo !== 1" class="btn bg-gradient-warning btn-sm m-1" (click)="open(content, item,false,tab,'editar',{empresa: contentEmpresa , email:contentEmail, tabela: contentTabela , integrador : contentIntegrador, usuarios : contentUsuario})" ><i class="fas fa-cog"></i></button>
+                    <button class="btn bg-gradient-warning btn-sm m-1" (click)="edit(content, item,false,tab,{empresa: contentEmpresa , email:contentEmail, tabela: contentTabela , integrador : contentIntegrador, usuario : contentUsuario})" ><i class="fas fa-cog"></i></button>
                 </tr>
               </tbody>
             </table>
@@ -209,7 +209,7 @@
                   <div class="input-group-prepend">
                     <span class="input-group-text">CNPJ</span> 
                   </div>
-                  <input type="text" name="cnpj"  [(ngModel)]="contrato.cnpj" id="cnpj" class="form-control" placeholder="123.456.789-10">
+                  <input type="text" name="cnpj"  [(ngModel)]="contratoEdit.cnpj" id="cnpj" class="form-control" placeholder="123.456.789-10">
                 </div>
               </div>
   
@@ -219,7 +219,7 @@
                   <div class="input-group-prepend">
                     <span class="input-group-text">Razao Social</span>
                   </div>
-                  <input type="text" name="razaosocial"  [(ngModel)]="contrato.razaosocial"  id="razaosocial" class="form-control" placeholder="12345678910">
+                  <input type="text" name="razaosocial"  [(ngModel)]="contratoEdit.razaosocial"  id="razaosocial" class="form-control" placeholder="12345678910">
                 </div>
               </div>
 
@@ -229,7 +229,7 @@
                   <div class="input-group-prepend">
                     <span class="input-group-text">Nome Fantasia</span>
                   </div>
-                  <input type="text" name="nomefantasia" [(ngModel)]="contrato.nomefantasia" id="nomefantasia" class="form-control" placeholder="12345678910">
+                  <input type="text" name="nomefantasia" [(ngModel)]="contratoEdit.nomefantasia" id="nomefantasia" class="form-control" placeholder="12345678910">
                 </div>
               </div>
 
@@ -238,7 +238,7 @@
                   <div class="input-group-prepend">
                     <span class="input-group-text">Endereco</span>
                   </div>
-                  <input type="text" name="endereco" [(ngModel)]="contrato.endereco" id="endereco" class="form-control" placeholder="12345678910">
+                  <input type="text" name="endereco" [(ngModel)]="contratoEdit.endereco" id="endereco" class="form-control" placeholder="12345678910">
                 </div>
               </div>
 
@@ -247,7 +247,7 @@
                   <div class="input-group-prepend">
                     <span class="input-group-text">Complemento</span>
                   </div>
-                  <input type="text" name="complemento"  [(ngModel)]="contrato.complemento"  id="complemento" class="form-control" placeholder="12345678910">
+                  <input type="text" name="complemento"  [(ngModel)]="contratoEdit.complemento"  id="complemento" class="form-control" placeholder="12345678910">
                 </div>
               </div>
 
@@ -256,7 +256,7 @@
                   <div class="input-group-prepend">
                     <span class="input-group-text">Bairro</span>
                   </div>
-                  <input type="text" name="bairro"  [(ngModel)]="contrato.bairro" id="bairro" class="form-control" placeholder="12345678910">
+                  <input type="text" name="bairro"  [(ngModel)]="contratoEdit.bairro" id="bairro" class="form-control" placeholder="12345678910">
                 </div>
               </div>
 
@@ -265,7 +265,7 @@
                   <div class="input-group-prepend">
                     <span class="input-group-text">Cep</span>
                   </div>
-                  <input type="text" name="cep" id="cep"  [(ngModel)]="contrato.cep" class="form-control" placeholder="12345678910">
+                  <input type="text" name="cep" id="cep"  [(ngModel)]="contratoEdit.cep" class="form-control" placeholder="12345678910">
                 </div>
               </div>
 
@@ -274,7 +274,7 @@
                   <div class="input-group-prepend">
                     <span class="input-group-text">Email</span>
                   </div>
-                  <input type="text" name="email" [(ngModel)]="contrato.email" id="email" class="form-control" placeholder="12345678910">
+                  <input type="text" name="email" [(ngModel)]="contratoEdit.email" id="email" class="form-control" placeholder="12345678910">
                 </div>
               </div>
             </div>
@@ -316,7 +316,7 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text">CNPJ</span> 
                     </div>
-                    <input type="text" name="cnpj"  [(ngModel)]="empresa.cnpj" id="cnpj" class="form-control" placeholder="123.456.789-10">
+                    <input type="text" name="cnpj"  [(ngModel)]="empresaEdit.cnpj" id="cnpj" class="form-control" placeholder="123.456.789-10">
                   </div>
                 </div>
     
@@ -326,7 +326,7 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text">Razao Social</span>
                     </div>
-                    <input type="text" name="razaosocial"  [(ngModel)]="empresa.razaosocial"  id="razaosocial" class="form-control" placeholder="12345678910">
+                    <input type="text" name="razaosocial"  [(ngModel)]="empresaEdit.razaosocial"  id="razaosocial" class="form-control" placeholder="12345678910">
                   </div>
                 </div>
   
@@ -336,7 +336,7 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text">Nome Fantasia</span>
                     </div>
-                    <input type="text" name="nomefantasia" [(ngModel)]="empresa.nomefantasia" id="nomefantasia" class="form-control" placeholder="12345678910">
+                    <input type="text" name="nomefantasia" [(ngModel)]="empresaEdit.nomefantasia" id="nomefantasia" class="form-control" placeholder="12345678910">
                   </div>
                 </div>
               </div>
@@ -378,7 +378,7 @@
                   <div class="input-group-prepend">
                     <span class="input-group-text">Email</span> 
                   </div>
-                  <input type="text" name="cnpj"  [(ngModel)]="email.email" id="cnpj" class="form-control" placeholder="123.456.789-10">
+                  <input type="text" name="cnpj"  [(ngModel)]="emailEdit.email" id="cnpj" class="form-control" placeholder="123.456.789-10">
                 </div>
               </div>
   
@@ -388,7 +388,7 @@
                   <div class="input-group-prepend">
                     <span class="input-group-text">Nome Contato</span>
                   </div>
-                  <input type="text" name="razaosocial"  [(ngModel)]="email.nomecontato"  id="razaosocial" class="form-control" placeholder="12345678910">
+                  <input type="text" name="razaosocial"  [(ngModel)]="emailEdit.nomecontato"  id="razaosocial" class="form-control" placeholder="12345678910">
                 </div>
               </div>
 
@@ -398,7 +398,7 @@
                   <div class="input-group-prepend">
                     <span class="input-group-text">Cargo</span>
                   </div>
-                  <input type="text" name="nomefantasia" [(ngModel)]="email.cargo" id="nomefantasia" class="form-control" placeholder="12345678910">
+                  <input type="text" name="nomefantasia" [(ngModel)]="emailEdit.cargo" id="nomefantasia" class="form-control" placeholder="12345678910">
                 </div>
               </div>
               
@@ -441,7 +441,7 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text">CNPJ</span> 
                     </div>
-                    <input type="text" name="cnpj"  [(ngModel)]="contrato.cnpj" id="cnpj" class="form-control" placeholder="123.456.789-10">
+                    <input type="text" name="cnpj"  [(ngModel)]="contratoEdit.cnpj" id="cnpj" class="form-control" placeholder="123.456.789-10">
                   </div>
                 </div>
     
@@ -451,7 +451,7 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text">Razao Social</span>
                     </div>
-                    <input type="text" name="razaosocial"  [(ngModel)]="contrato.razaosocial"  id="razaosocial" class="form-control" placeholder="12345678910">
+                    <input type="text" name="razaosocial"  [(ngModel)]="contratoEdit.razaosocial"  id="razaosocial" class="form-control" placeholder="12345678910">
                   </div>
                 </div>
   
@@ -461,7 +461,7 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text">Nome Fantasia</span>
                     </div>
-                    <input type="text" name="nomefantasia" [(ngModel)]="contrato.nomefantasia" id="nomefantasia" class="form-control" placeholder="12345678910">
+                    <input type="text" name="nomefantasia" [(ngModel)]="contratoEdit.nomefantasia" id="nomefantasia" class="form-control" placeholder="12345678910">
                   </div>
                 </div>
   
@@ -470,7 +470,7 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text">Endereco</span>
                     </div>
-                    <input type="text" name="endereco" [(ngModel)]="contrato.endereco" id="endereco" class="form-control" placeholder="12345678910">
+                    <input type="text" name="endereco" [(ngModel)]="contratoEdit.endereco" id="endereco" class="form-control" placeholder="12345678910">
                   </div>
                 </div>
   
@@ -479,7 +479,7 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text">Complemento</span>
                     </div>
-                    <input type="text" name="complemento"  [(ngModel)]="contrato.complemento"  id="complemento" class="form-control" placeholder="12345678910">
+                    <input type="text" name="complemento"  [(ngModel)]="contratoEdit.complemento"  id="complemento" class="form-control" placeholder="12345678910">
                   </div>
                 </div>
   
@@ -488,7 +488,7 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text">Bairro</span>
                     </div>
-                    <input type="text" name="bairro"  [(ngModel)]="contrato.bairro" id="bairro" class="form-control" placeholder="12345678910">
+                    <input type="text" name="bairro"  [(ngModel)]="contratoEdit.bairro" id="bairro" class="form-control" placeholder="12345678910">
                   </div>
                 </div>
   
@@ -497,7 +497,7 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text">Cep</span>
                     </div>
-                    <input type="text" name="cep" id="cep"  [(ngModel)]="contrato.cep" class="form-control" placeholder="12345678910">
+                    <input type="text" name="cep" id="cep"  [(ngModel)]="contratoEdit.cep" class="form-control" placeholder="12345678910">
                   </div>
                 </div>
   
@@ -506,7 +506,7 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text">Email</span>
                     </div>
-                    <input type="text" name="email" [(ngModel)]="contrato.email" id="email" class="form-control" placeholder="12345678910">
+                    <input type="text" name="email" [(ngModel)]="contratoEdit.email" id="email" class="form-control" placeholder="12345678910">
                   </div>
                 </div>
               </div>
@@ -548,7 +548,7 @@
                   <div class="input-group-prepend">
                     <span class="input-group-text">Usuario</span> 
                   </div>
-                  <input type="text" name="cnpj"  [(ngModel)]="integrador.usuario" id="cnpj" class="form-control" placeholder="123.456.789-10">
+                  <input type="text" name="cnpj"  [(ngModel)]="integradorEdit.usuario" id="cnpj" class="form-control" placeholder="123.456.789-10">
                 </div>
               </div>
   
@@ -558,7 +558,7 @@
                   <div class="input-group-prepend">
                     <span class="input-group-text">Senha</span>
                   </div>
-                  <input type="text" name="razaosocial"  [(ngModel)]="integrador.senha"  id="razaosocial" class="form-control" placeholder="12345678910">
+                  <input type="text" name="razaosocial"  [(ngModel)]="integradorEdit.senha"  id="razaosocial" class="form-control" placeholder="12345678910">
                 </div>
               </div>
 
@@ -568,7 +568,7 @@
                   <div class="input-group-prepend">
                     <span class="input-group-text">Token</span>
                   </div>
-                  <input type="text" name="nomefantasia" [(ngModel)]="integrador.token" id="nomefantasia" class="form-control" placeholder="12345678910">
+                  <input type="text" name="nomefantasia" [(ngModel)]="integradorEdit.token" id="nomefantasia" class="form-control" placeholder="12345678910">
                 </div>
               </div>
 
@@ -577,7 +577,7 @@
                   <div class="input-group-prepend">
                     <span class="input-group-text">Integrador</span>
                   </div>
-                  <input type="text" name="nomefantasia" [(ngModel)]="integrador.integrador" id="nomefantasia" class="form-control" placeholder="12345678910">
+                  <input type="text" name="nomefantasia" [(ngModel)]="integradorEdit.integrador" id="nomefantasia" class="form-control" placeholder="12345678910">
                 </div>
               </div>
 
@@ -621,7 +621,7 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text">CPF</span> 
                     </div>
-                    <input type="text" name="cnpj"  [(ngModel)]="usuario.cpf" id="cnpj" class="form-control" placeholder="123.456.789-10">
+                    <input type="text" name="cnpj"  [(ngModel)]="usuarioEdit.cpf" id="cnpj" class="form-control" placeholder="123.456.789-10">
                   </div>
                 </div>
     
@@ -631,7 +631,7 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text">Usuario</span>
                     </div>
-                    <input type="text" name="razaosocial"  [(ngModel)]="usuario.usuario"  id="razaosocial" class="form-control" placeholder="12345678910">
+                    <input type="text" name="razaosocial"  [(ngModel)]="usuarioEdit.usuario"  id="razaosocial" class="form-control" placeholder="12345678910">
                   </div>
                 </div>
   
@@ -641,7 +641,7 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text">Email</span>
                     </div>
-                    <input type="text" name="nomefantasia" [(ngModel)]="usuario.email" id="nomefantasia" class="form-control" placeholder="12345678910">
+                    <input type="text" name="nomefantasia" [(ngModel)]="usuarioEdit.email" id="nomefantasia" class="form-control" placeholder="12345678910">
                   </div>
                 </div>
   

@@ -28,7 +28,23 @@ export class ContratosComponent implements OnInit {
     razaosocial:'',
     nomefantasia:''
   };
+  contratoEdit:any={
+    cnpj:'',
+    email:'',
+    cep:'',
+    bairro:'',
+    complemento:'',
+    endereco:'',
+    razaosocial:'',
+    nomefantasia:''
+  };
   empresa:any={
+    cnpj:'',
+    razaosocial:'',
+    nomefantasia:'',
+    id_contrato:null
+  };
+  empresaEdit:any={
     cnpj:'',
     razaosocial:'',
     nomefantasia:'',
@@ -39,13 +55,30 @@ export class ContratosComponent implements OnInit {
     nomecontato:'',
     cargo:''
   };
+  emailEdit:any={
+    email:'',
+    nomecontato:'',
+    cargo:''
+  };
   integrador:any={
     usuario:'',
     senha:'',
     token:'',
     integrador:''
   };
+  integradorEdit:any={
+    usuario:'',
+    senha:'',
+    token:'',
+    integrador:''
+  };
   usuario:any={
+    cpf:'',
+    email:'',
+    usuario   :'',
+    id_contrato:null
+  };
+  usuarioEdit:any={
     cpf:'',
     email:'',
     usuario   :'',
@@ -291,21 +324,25 @@ export class ContratosComponent implements OnInit {
     
   }
 
-  edit(content: any, item: any, dados: boolean = false,tipo:string=''){
-    this.modalService.open(content, { size: 'lg' });
+  edit(content: any, item: any, dados: boolean = false,tipo:string='', contents: any=null){
     if(tipo === 'empresa'){
-      this.empresa = item; 
+      this.empresaEdit = {...item};
+      content = contents.empresa;
     }else if(tipo === 'email'){
-      this.email = item; 
+      this.emailEdit = {...item};
+      content = contents.Email;
     }else if(tipo === 'integrador'){
-      this.integrador = item; 
+      this.integradorEdit = {...item}; 
+      content = contents.integrador;
     }else if(tipo === 'usuarios'){
-      this.usuario = item; 
+      this.usuarioEdit = {...item};
+      content = contents.usuario; 
     }else{
-      this.contrato = item;
+      this.contratoEdit = {...item};
     }
     this.editar = true;
     this.empresas();
+    this.modalService.open(content, { size: 'lg' });
   }
 
   close(form:string=''){
@@ -375,7 +412,7 @@ export class ContratosComponent implements OnInit {
        method: 'contrato',
        function: 'insertContrato',
        type: 'post',
-       data:this.contrato
+       data:this.contratoEdit
      };
      this.api.AccessApi(params).then((response) => {
       response.subscribe(data => {
@@ -399,7 +436,7 @@ export class ContratosComponent implements OnInit {
       method: 'contrato',
       function: 'updateContrato',
       type: 'put',
-      data:this.contrato
+      data:this.contratoEdit
     };
     this.api.AccessApi(params).then((response) => {
       response.subscribe(data => {
@@ -448,7 +485,7 @@ export class ContratosComponent implements OnInit {
       method: 'empresa',
       function: 'insertEmpresa',
       type: 'post',
-      data:this.empresa
+      data:this.empresaEdit
     };
     this.api.AccessApi(params).then((response) => {
      response.subscribe(data => {
@@ -472,7 +509,7 @@ export class ContratosComponent implements OnInit {
      method: 'empresa',
      function: 'updateEmpresa',
      type: 'put',
-     data:this.empresa
+     data:this.empresaEdit
    };
    this.api.AccessApi(params).then((response) => {
      response.subscribe(data => {
@@ -522,7 +559,7 @@ export class ContratosComponent implements OnInit {
     method: 'contratoemail',
     function: 'insertContratoEmail',
     type: 'post',
-    data:this.email
+    data:this.emailEdit
   };
   this.api.AccessApi(params).then((response) => {
    response.subscribe(data => {
@@ -546,7 +583,7 @@ async updateInfoEmail() {
    method: 'contratoemail',
    function: 'updateContratoEmail',
    type: 'put',
-   data:this.empresa
+   data:this.emailEdit
  };
  this.api.AccessApi(params).then((response) => {
    response.subscribe(data => {
@@ -572,7 +609,7 @@ async insertInfoIntegrador() {
     method: 'contratointegrador',
     function: 'insertContratoIntegrador',
     type: 'post',
-    data:this.integrador
+    data:this.integradorEdit
   };
   this.api.AccessApi(params).then((response) => {
    response.subscribe(data => {
@@ -596,7 +633,7 @@ async updateInfoIntegrador() {
    method: 'contratointegrador',
    function: 'updateContratoIntegrador',
    type: 'put',
-   data:this.integrador
+   data:this.integradorEdit
  };
  this.api.AccessApi(params).then((response) => {
    response.subscribe(data => {
@@ -646,7 +683,7 @@ async insertInfoUsuario() {
     method: 'usergr',
     function: 'insertUsuariogr',
     type: 'post',
-    data:this.usuario
+    data:this.usuarioEdit
   };
   this.api.AccessApi(params).then((response) => {
    response.subscribe(data => {
@@ -670,7 +707,7 @@ async updateInfoUsuario() {
    method: 'usergr',
    function: 'updateUsuariogr',
    type: 'put',
-   data:this.usuario
+   data:this.usuarioEdit
  };
  this.api.AccessApi(params).then((response) => {
    response.subscribe(data => {
