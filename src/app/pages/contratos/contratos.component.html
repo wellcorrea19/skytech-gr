@@ -19,7 +19,7 @@
         <div class="card-header" style="border-bottom: none;">
           <h3 class="card-title"><i class="fas fa-address-card mr-3"></i> Contratos </h3>
           <div class="card-tools">
-            <input type="text" class="form-control" placeholder="Pesquisa">
+            <input [(ngModel)]="searchValue" (input)="search()" type="text" class="form-control" placeholder="Pesquisa">
             <a href="javascript:void();"><i class="icon-magnifier"></i></a>
           </div>
         </div>
@@ -45,7 +45,7 @@
                     <th>Data Cadastro</th>
                   </tr>
                 </thead>
-                <tbody *ngFor="let item of list  | paginate: { itemsPerPage: 10, currentPage: paginaAtual }">
+                <tbody *ngFor="let item of filteredList  | paginate: { itemsPerPage: 10, currentPage: paginaAtual }">
                   <tr>
                     <!-- <span style="display: contents;" (click)="open(content, item, true)"> -->
                       <td>
@@ -173,7 +173,7 @@
                   <td>{{item.validade}}</td>  
                   <td>{{item.datacadastro}}</td>
                 <!-- </span> -->
-                  <button  class="btn bg-gradient-danger btn-sm m-1" (click)="open(content, item,false,tab,'exibir',{empresa: contentEmpresa , email:contentEmail, tabela: contentTabela , integrador : contentIntegrador, usuarios : contentUsuario})" ><i class="fas fa-power-off"></i></button>
+                  <button  class="btn bg-gradient-danger btn-sm m-1" (click)="deactivate(content, item,false,tab,{empresa: contentEmpresa , email:contentEmail, tabela: contentTabela , integrador : contentIntegrador, usuarios : contentUsuario})" ><i class="fas fa-power-off"></i></button>
                   <button class="btn bg-gradient-warning btn-sm m-1" (click)="open(content, item,false,tab,'editar',{empresa: contentEmpresa , email:contentEmail, tabela: contentTabela , integrador : contentIntegrador, usuarios : contentUsuario})" ><i class="fas fa-cog"></i></button>
               </tr>
             </tbody>
@@ -296,7 +296,7 @@
     
         <div class="card">
           <div class="modal-header">
-            <h3 class="card-title"><i class="fas fa-address-card mr-3"></i>{{this.editar?'Editar Empesa':'Adicionar Empresa'}}</h3>
+            <h3 class="card-title"><i class="fas fa-address-card mr-3"></i>{{this.editar?'Editar Empresa':'Adicionar Empresa'}}</h3>
             <div class="card-tools">
               <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
               <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i></button>

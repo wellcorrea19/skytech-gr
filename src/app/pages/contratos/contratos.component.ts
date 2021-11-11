@@ -4,14 +4,15 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { UtilService } from 'src/app/service/util/util.service';
 import { ApiService } from 'src/app/service/api/api.service';
 import { ToastrService } from 'ngx-toastr';
+
 @Component({
   selector: 'app-contratos',
   templateUrl: './contratos.component.html',
   styleUrls: ['./contratos.component.scss']
 })
 export class ContratosComponent implements OnInit {
-
   list: any;
+  filteredList: any;
   sublist: any;
   dados: any;
   editar: boolean= false;
@@ -50,6 +51,9 @@ export class ContratosComponent implements OnInit {
     usuario   :'',
     id_contrato:null
   };
+
+  searchValue: string = '';
+
   constructor(
     private router: Router,
     public modalService: NgbModal,
@@ -62,6 +66,60 @@ export class ContratosComponent implements OnInit {
     this.GetInfo();
   }
 
+  search() {
+    const data = this.searchValue.toLowerCase();
+    if (this.searchValue) {
+      this.filteredList = this.list.filter(function (ele: any, i: any, array: any) {
+        let match = false;
+        let arrayelement = '';
+        
+        //checa cnpj
+        if (ele.cnpj) {
+          arrayelement = ele.cnpj.toLowerCase();
+          arrayelement.includes(data) ? match=true : null;
+        }
+
+        //checa razao social
+        if (ele.razaosocial) {
+          arrayelement = ele.razaosocial.toLowerCase();
+          arrayelement.includes(data) ? match=true : null;
+        }
+
+        //checa endereco
+        if (ele.endereco) {
+          arrayelement = ele.endereco.toLowerCase();
+          arrayelement.includes(data) ? match=true : null;
+        }
+
+        //checa cep
+        if (ele.cep) {
+          arrayelement = ele.cep.toLowerCase();
+          arrayelement.includes(data) ? match=true : null;
+        }
+
+        //checa email
+        if (ele.email) {
+          arrayelement = ele.email.toLowerCase();
+          arrayelement.includes(data) ? match=true : null;
+        }
+
+        //checa validade
+        if (ele.validade) {
+          arrayelement = ele.validade.toLowerCase();
+          arrayelement.includes(data) ? match=true : null;
+        }
+
+        //checa data cadastro
+        if (ele.datacadastro) {
+          arrayelement = ele.datacadastro.toLowerCase();
+          arrayelement.includes(data) ? match=true : null;
+        }
+
+        return match;
+      });
+    }
+  }
+
   // Função pegando dados
   async GetInfo() {
     const params = {
@@ -72,17 +130,18 @@ export class ContratosComponent implements OnInit {
 
     this.api.AccessApi(params).then((response) => {
       response.subscribe(data => {
-      switch (data.error) {
-        case (false):
-          this.FillArray( 'list', data.list)
-          break;
+        switch (data.error) {
+          case (false):
+            this.FillArray( 'list', data.list)
+            this.filteredList = this.list;
+            break;
           case (true):
             this.toastr.error(data.msg);
             break;
           }
-        });
       });
-    }
+    });
+  }
 
   async empresas() {
     this.tab = 'empresa';
@@ -217,7 +276,7 @@ export class ContratosComponent implements OnInit {
     }else if(tipo === 'integrador'){
       if(acao !=='cadastro'){
         this.integrador = item;
-      } 
+      }
       content = contents.integrador;
     }else if(tipo === 'usuarios'){
       if(acao !=='cadastro'){
@@ -240,7 +299,7 @@ export class ContratosComponent implements OnInit {
       this.email = item; 
     }else if(tipo === 'integrador'){
       this.integrador = item; 
-    }else if(tipo === 'usuario'){
+    }else if(tipo === 'usuarios'){
       this.usuario = item; 
     }else{
       this.contrato = item;
@@ -291,6 +350,25 @@ export class ContratosComponent implements OnInit {
   
     this.modalService.dismissAll();
   }
+
+  deactivate(content: any, item: any, dados: boolean = false,tipo:string='', contents: any=null){
+    if(tipo === 'empresa'){
+      this.empresa = item; 
+      this.deactivateEmpresa();
+    }else if(tipo === 'email'){
+      this.email = item; 
+    }else if(tipo === 'integrador'){
+      this.integrador = item; 
+      this.deactivateContratoIntegrador();
+    }else if(tipo === 'usuarios'){
+      this.usuario = item; 
+      this.deactivateUsuario();
+    }else{
+      this.contrato = item;
+      this.deactivateContrato();
+    }
+  }
+
   // Função inserindo dados
   async insertInfo() {
      const params = {
@@ -340,6 +418,30 @@ export class ContratosComponent implements OnInit {
     });
   }
 
+  async deactivateContrato() {
+    const params = {
+      method: 'contrato/deactivate',
+      function: 'deactivateContrato',
+      type: 'post',
+      data:this.contrato
+    };
+    this.api.AccessApi(params).then((response) => {
+      response.subscribe(data => {
+          switch (data.error) {
+            case (false):
+              this.FillArray( 'list', data.list);
+              this.toastr.success('Desativado com sucesso');
+              this.GetInfo();
+              this.close();
+              break;
+            case (true):
+              this.toastr.error(data.msg);
+              break;
+          }
+      });
+    });
+   }
+
   async insertInfoEmpresa() {
     this.empresa.id_contrato = this.contrato.id;
     const params = {
@@ -387,6 +489,31 @@ export class ContratosComponent implements OnInit {
          }
      });
    });
+ }
+
+ async deactivateEmpresa() {
+  const params = {
+    method: 'empresa/deactivate',
+    function: 'deactivateEmpresa',
+    type: 'post',
+    data:this.empresa
+  };
+  this.api.AccessApi(params).then((response) => {
+    response.subscribe(data => {
+        switch (data.error) {
+          case (false):
+            this.FillArray( 'list', data.list);
+            this.toastr.success('Desativada com sucesso');
+            this.GetInfo();
+            this.close();
+            break;
+          case (true):
+            this.toastr.error(data.msg);
+            break;
+        }
+    });
+  });
+  this.empresas();
  }
 
  async insertInfoEmail() {
@@ -488,6 +615,31 @@ async updateInfoIntegrador() {
  });
 }
 
+async deactivateContratoIntegrador() {
+  const params = {
+    method: 'contratointegrador/deactivate',
+    function: 'deactivateContratoIntegrador',
+    type: 'post',
+    data:this.integrador
+  };
+  this.api.AccessApi(params).then((response) => {
+    response.subscribe(data => {
+        switch (data.error) {
+          case (false):
+            this.FillArray( 'list', data.list);
+            this.toastr.success('Desativado com sucesso');
+            this.GetInfo();
+            this.close();
+            break;
+          case (true):
+            this.toastr.error(data.msg);
+            break;
+        }
+    });
+  });
+  this.integradores();
+}
+
 async insertInfoUsuario() {
   this.usuario.id_contrato = this.contrato.id;
   const params = {
@@ -536,5 +688,30 @@ async updateInfoUsuario() {
    });
  });
 }
+
+async deactivateUsuario() {
+  const params = {
+    method: 'usergr/deactivate',
+    function: 'deactivateUsuariogr',
+    type: 'post',
+    data:this.usuario
+  };
+  this.api.AccessApi(params).then((response) => {
+    response.subscribe(data => {
+        switch (data.error) {
+          case (false):
+            this.FillArray( 'list', data.list);
+            this.toastr.success('Desativado com sucesso');
+            this.GetInfo();
+            this.close();
+            break;
+          case (true):
+            this.toastr.error(data.msg);
+            break;
+        }
+    });
+  });
+  this.usuarios();
+ }
 
 }
