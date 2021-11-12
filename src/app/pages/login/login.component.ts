@@ -57,7 +57,7 @@ export class LoginComponent implements OnInit {
           switch (data.error) {
             case(false):
               this.util.SetStorage('token', data.token);
-              this.util.SetStorage('user', data.user);
+              this.util.SetStorage('user', data.usuariogr);
               window.location.reload();
               this.toastr.success('Login efetuado com sucesso!');
               this.auth.authState.next(true);

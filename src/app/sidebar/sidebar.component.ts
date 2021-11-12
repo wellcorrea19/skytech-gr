@@ -118,6 +118,7 @@ export class SidebarComponent implements OnInit {
   getUser() {
     const res = this.util.GetStorage('user');
     this.user = res;
+    console.log(this.user)
   }
 
   open(name: string) {
