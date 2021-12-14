@@ -156,7 +156,7 @@ export class ContratosComponent implements OnInit {
   // Função pegando dados
   async GetInfo() {
     const params = {
-      method: 'contratos',
+      method: 'contrato',
       function: 'listContrato',
       type: 'get'
     };
